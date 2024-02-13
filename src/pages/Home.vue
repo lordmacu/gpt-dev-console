@@ -31,7 +31,12 @@ export default {
     },
     watch: {
         '$route.params.uuid'(newUuid) {
-            this.getByUUID(newUuid);
+            if(newUuid){
+                this.getByUUID(newUuid);
+            }else{
+                this.loadLastChat();
+
+            }
 
         }
     },

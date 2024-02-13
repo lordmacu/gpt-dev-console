@@ -54,6 +54,8 @@ const ChatService = {
     return await db.chats.where('title').equalsIgnoreCase(title).toArray();
   },
 
+  
+
   async getChatByUUID(uuid) {
     return await db.chats.where('uuid').equals(uuid).first();
   },
@@ -63,6 +65,26 @@ const ChatService = {
       (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
     );
   },
+
+  async deleteChatsWithoutMessagesExceptUUID(keepUUID) {
+    const allChats = await this.getAllChats();
+    const chatsToDelete = [];
+
+    for (const chat of allChats) {
+        if (chat.uuid === keepUUID) continue;
+
+        const messages = await db.messages.where({ chatId: chat.id }).toArray();
+        if (messages.length === 0) {
+             chatsToDelete.push(chat.id);
+        }
+    }
+
+     await db.transaction('rw', db.chats, async () => {
+        await Promise.all(chatsToDelete.map(chatId => db.chats.delete(chatId)));
+    });
+
+ }
+
 
 };
 

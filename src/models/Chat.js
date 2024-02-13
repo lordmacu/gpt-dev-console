@@ -45,6 +45,16 @@
          return chat;
      }
 
+     /**
+      * Deletes all chats that do not match the specified UUID and have no messages.
+      * @param {string} keepUUID The UUID of the chat to not delete.
+      */
+     static async deleteAllChatsExceptUUID(keepUUID) {
+
+         await ChatService.deleteChatsWithoutMessagesExceptUUID(keepUUID);
+
+     }
+
 
      static async loadAllChatsWithMessages() {
          const chatsData = await ChatService.getAllChats();
@@ -70,18 +80,18 @@
      }
 
      static async searchChatsAndMessagesByText(text) {
-        const chatsData = await ChatService.searchChatsAndMessagesByText(text);
-        const chatsWithMessages = await Promise.all(chatsData.map(async (chatData) => {
-            const messages = await MessageService.getMessagesByChatId(chatData.id);
-            if (messages.length > 0) {
-                return new Chat(chatData.id, chatData.uuid, chatData.title, chatData.type, messages, chatData.keywords);
-            }
-            return null;
-        }));
+         const chatsData = await ChatService.searchChatsAndMessagesByText(text);
+         const chatsWithMessages = await Promise.all(chatsData.map(async (chatData) => {
+             const messages = await MessageService.getMessagesByChatId(chatData.id);
+             if (messages.length > 0) {
+                 return new Chat(chatData.id, chatData.uuid, chatData.title, chatData.type, messages, chatData.keywords);
+             }
+             return null;
+         }));
 
-        const chatsFiltered = chatsWithMessages.filter(chat => chat !== null);
-        return chatsFiltered;
-    }
+         const chatsFiltered = chatsWithMessages.filter(chat => chat !== null);
+         return chatsFiltered;
+     }
 
 
      static async loadLastChat() {

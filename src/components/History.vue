@@ -49,6 +49,7 @@ export default {
         async createChat(chatType) {
             this.chatType = chatType.toLowerCase();
             this.chat = await Chat.create("New Chat :" + this.chatType, this.chatType);
+
             await this.loadChats();
             this.$emit('new-chat', this.chat);
 
@@ -62,9 +63,19 @@ export default {
         async loadChats() {
             this.chats = await Chat.loadAllChatsWithMessages();
         },
-        loadChat(chat) {
-            this.chat = chat;
-            this.$router.push({ name: 'Chat', params: { uuid: chat.uuid } })
+        async loadChat(chat) {
+             await Chat.deleteAllChatsExceptUUID(chat.uuid);
+             this.loadChats();
+
+            
+            const targetPath = `/chat/${chat.uuid}`;
+            if (this.$router.currentRoute.path !== targetPath) {
+                this.$router.push({ path: targetPath }).catch(err => {
+                    if (err.name !== 'NavigationDuplicated') {
+                        console.error(err);
+                    }
+                });
+            }
         }
     },
     mounted() {
