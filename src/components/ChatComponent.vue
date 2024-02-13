@@ -46,7 +46,7 @@ export default {
                 const message= await Message.add(this.chat.id, textMessage);
                 this.$emit('message-added', message);
             } catch (error) {
-                console.error('Error al añadir mensaje:', error);
+                console.error('error:', error);
             }
         }
     },

@@ -29,6 +29,12 @@ export default {
         }
 
     },
+    watch: {
+        '$route.params.uuid'(newUuid) {
+            this.getByUUID(newUuid);
+
+        }
+    },
     mounted() {
         this.chatId = this.$route.params.uuid;
         if (this.chatId) {
@@ -57,14 +63,14 @@ export default {
             this.loadCurrentChat(this.chat);
 
             this.$nextTick(() => {
-        setTimeout(() => {
-            const chatElementId = `chat-${this.chat.id}`;
-            const chatElement = document.getElementById(chatElementId);
-            if (chatElement) {
-                chatElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
-        }, 100);
-    });
+                setTimeout(() => {
+                    const chatElementId = `chat-${this.chat.id}`;
+                    const chatElement = document.getElementById(chatElementId);
+                    if (chatElement) {
+                        chatElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                }, 100);
+            });
 
         },
         handleMessageAdded(message) {

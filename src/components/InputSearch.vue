@@ -41,7 +41,6 @@ export default {
             this.$emit('search-chat', this.text);
         },
         sendChat() {
-            console.log("aquiii");
         },
         handleFocus() {
             this.isFocused = true;

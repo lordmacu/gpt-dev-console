@@ -45,7 +45,6 @@ export default {
             this.chats = await Chat.loadChatsWithMessages();
         },
         goToChat(chat) {
-            console.log(chat);
             this.$router.push({ name: 'Chat', params: { uuid: chat.uuid } })
         }
     },

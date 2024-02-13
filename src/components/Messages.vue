@@ -50,6 +50,5 @@ export default {
 
 .messages-container::-webkit-scrollbar {
     display: none;
-    /* Para Chrome, Safari, y Opera */
 }
 </style>

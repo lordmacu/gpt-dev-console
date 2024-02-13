@@ -5,7 +5,7 @@
             <span>Cristian Garcia</span>
         </div>
         <div class="body-message">
-            {{message.text}}
+            {{ message.text }}
         </div>
     </b-row>
 </template>
@@ -34,11 +34,8 @@ export default {
 
 .body-message {
     -webkit-user-select: text;
-    /* Safari */
     -moz-user-select: text;
-    /* Firefox */
     -ms-user-select: text;
-    /* Internet Explorer/Edge */
     user-select: text;
 
 }
@@ -57,4 +54,5 @@ export default {
 span {
     font-weight: 700 !important;
     margin-left: 10px;
-}</style>
+}
+</style>

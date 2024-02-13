@@ -30,7 +30,6 @@ export default {
 <style>
 .full-height {
   height: 100vh;
-  /* Esto asegura que el contenedor principal tome toda la altura de la ventana */
 }
 
 .chat-container,

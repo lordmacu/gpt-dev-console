@@ -44,7 +44,6 @@ export default {
         };
     }, methods: {
         loadCurrentChat(chat) {
-            console.log(chat, "conm conversacion");
             this.chat = chat;
         },
         async createChat(chatType) {
@@ -64,11 +63,8 @@ export default {
             this.chats = await Chat.loadAllChatsWithMessages();
         },
         loadChat(chat) {
-            console.log(chat, "conversación seleccionada");
             this.chat = chat;
-            this.$emit('new-chat', chat);
-
-           
+            this.$router.push({ name: 'Chat', params: { uuid: chat.uuid } })
         }
     },
     mounted() {
@@ -102,7 +98,6 @@ export default {
 
 .messages-container::-webkit-scrollbar {
     display: none;
-    /* Para Chrome, Safari, y Opera */
 }
 
 .history-head {
