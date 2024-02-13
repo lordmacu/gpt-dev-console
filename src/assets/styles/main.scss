@@ -1,0 +1,96 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+.modal-title{
+    color: black !important;
+}
+
+.modal-body{
+    color: black !important;
+
+}
+
+.close{
+    border-radius: 100%;
+    border: 0;
+    font-size: 23px;
+    width: 30px;
+    height: 30px;
+    line-height: 25px;
+
+}
+#app {
+    height: 100%;
+}
+
+body {
+    background-color: #141718;
+    color: white;
+}
+
+.chat-container {
+    background-color: #232627;
+    border-radius: 30px;
+    color: white;
+
+    .chat-history {
+        border-left: 2px solid #313435;
+    }
+
+    .chat-content {
+
+
+        .head-title {
+            border-bottom: 2px solid #313435;
+            padding: 15px 30px 15px 30px;
+
+            h2 {
+                text-align: left;
+                margin: 0;
+            }
+        }
+
+        .content {
+            padding: 30px;
+            text-align: start;  
+
+            .avatar {
+                width: 40px;
+                border-radius: 100%;
+            }
+        }
+
+
+    }
+}
+
+ 
+
+::-webkit-scrollbar {
+    width: 20px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #d6dee1;
+    border-radius: 20px;
+    border: 6px solid transparent;
+    background-clip: content-box;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #a8bbbf;
+  }
+
+  body {
+    user-select: none; /* Standard syntax */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE/Edge */
+  }
