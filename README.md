@@ -1,4 +1,6 @@
-# bootstrap-vue-app
+# Gpt dev console
+
+this is a project to clone some functionalities of chatGpt  with some functionalities, like search conversations, local save in browser, custom contexts, and in the future  server functionality like share chat with other user team members, control and limit messages and chats, analyze messages and usage statistics, and maybe more
 
 ## Project setup
 ```
