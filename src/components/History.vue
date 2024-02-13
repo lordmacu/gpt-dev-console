@@ -53,6 +53,8 @@ export default {
             await this.loadChats();
             this.$emit('new-chat', this.chat);
 
+            this.clearChats(this.chat.uuid);
+
             this.$refs.newChatModal.hide();
             setTimeout(() => {
                 document.getElementById('chatInput').focus();
@@ -63,11 +65,15 @@ export default {
         async loadChats() {
             this.chats = await Chat.loadAllChatsWithMessages();
         },
-        async loadChat(chat) {
-             await Chat.deleteAllChatsExceptUUID(chat.uuid);
-             this.loadChats();
+        async clearChats(uuid) {
+            await Chat.deleteAllChatsExceptUUID(uuid);
+            this.loadChats();
 
-            
+        },
+        async loadChat(chat) {
+
+            this.clearChats(chat.uuid);
+
             const targetPath = `/chat/${chat.uuid}`;
             if (this.$router.currentRoute.path !== targetPath) {
                 this.$router.push({ path: targetPath }).catch(err => {
