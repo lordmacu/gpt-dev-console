@@ -7,7 +7,7 @@
                 <Elipsis v-b-tooltip.hover title="Options" />
             </template>
         </TitleChat>
-        <Messages :messages="chat.messages" />
+        <Messages ref="messages" :messages="chat.messages" />
         <ChatInput @new-message="newMessage"></ChatInput>
     </div>
 </template>
@@ -23,6 +23,9 @@ import Star from '../components/icons/Star.vue'
 
 import Message from '@/models/Message';
 
+
+import OpenAI from 'openai';
+
 export default {
     name: 'ChatComponent',
     props: {
@@ -35,15 +38,21 @@ export default {
         return {
             chatObject: '',
             messages: [],
+            openai: null
         }
     },
 
     methods: {
 
+        setMessage(message) {
+            this.$refs.messages.updateMessage(message);
+        },
+
+
         async newMessage(textMessage) {
 
             try {
-                const message= await Message.add(this.chat.id, textMessage);
+                const message = await Message.add(this.chat.id, textMessage, 'me');
                 this.$emit('message-added', message);
             } catch (error) {
                 console.error('error:', error);
@@ -51,6 +60,11 @@ export default {
         }
     },
     mounted() {
+        const apiKey = process.env.VUE_APP_API_KEY_OPENAI;
+        this.openai = new OpenAI({
+            apiKey: apiKey,
+            dangerouslyAllowBrowser: true
+        });
         this.chatObject = this.chat;
     },
     components: {

@@ -1,6 +1,6 @@
 <template>
-    <div class="messages-container flex-grow-1"  ref="messagesContainer">
-        <ChatMessage v-for="(message, index) in messages" :key="index" :message="message"></ChatMessage>
+    <div class="messages-container flex-grow-1" ref="messagesContainer" id="chat-box">
+        <ChatMessage v-for="(message, index) in messages"  :ref="'message_'+message.id" :key="index" :message="message"></ChatMessage>
     </div>
 </template>
 
@@ -26,6 +26,13 @@ export default {
         };
     },
     methods: {
+        updateMessage(message) {
+             const messageComponent = this.$refs['message_'+message.id][0];
+              if(messageComponent){
+                messageComponent.updateMessage(message);
+                this.scrollToBottom();
+             }
+        },
         scrollToBottom() {
             const container = this.$refs.messagesContainer;
             if (container) {

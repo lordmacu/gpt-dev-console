@@ -17,6 +17,17 @@
 
          return new Chat(chat.chatId, chat.uuid, title, type, []);
      }
+     static async edit(chatId, title) {
+        await ChatService.editChat(chatId, title);
+        return await this.getChatById(chatId);
+    
+      }
+    
+      static async getChatById(chatId) {
+        const chatData = await ChatService.getChatById(chatId);
+        return new Chat(chatData.id, chatData.uuid, chatData.title, chatData.type, chatData.messages, chatData.d);
+      }
+    
 
      static async searchByTitle(title) {
          const chatsData = await ChatService.searchChatByTitle(title);

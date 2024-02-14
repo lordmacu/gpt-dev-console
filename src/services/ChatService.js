@@ -10,6 +10,10 @@ const ChatService = {
     return {uuid, chatId};
   },
 
+  async getChatById(chatId) {
+    return await db.chats.get(chatId);
+  },
+
   async searchChatsAndMessagesByText(searchText) {
     const chatsMatchingTitle = await db.chats.where('title').equalsIgnoreCase(searchText).toArray();
 
@@ -52,6 +56,10 @@ const ChatService = {
 
   async searchChatByTitle(title) {
     return await db.chats.where('title').equalsIgnoreCase(title).toArray();
+  },
+
+  async editChat(chatId, title) {
+    return await db.chats.update(chatId, { title: title });
   },
 
   

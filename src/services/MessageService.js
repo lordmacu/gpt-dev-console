@@ -2,11 +2,14 @@
 import db from '@/db';
 
 const MessageService = {
-  async addMessage(chatId, text, date = new Date()) {
+  async addMessage(chatId, text, sender, date = new Date()) {
+
+    console.log(chatId, text, date = new Date(), sender)
     const messageId = await db.messages.add({
       chatId,
       text,
-      date
+      date,
+      sender
     });
     
     return messageId;
@@ -14,6 +17,9 @@ const MessageService = {
 
   async getMessagesByChatId(chatId) {
     return await db.messages.where({ chatId }).sortBy('date');
+  },
+  async getMessageById(messageId) {
+    return await db.messages.get(messageId);
   },
 
   async searchMessagesInChat(chatId, searchText) {
@@ -23,6 +29,10 @@ const MessageService = {
       .filter(message => message.text.toLowerCase().includes(searchText.toLowerCase()))
       .toArray();
   },
+
+  async editMessage(messageId, newText) {
+    return await db.messages.update(messageId, { text: newText });
+  }
 
 };
 

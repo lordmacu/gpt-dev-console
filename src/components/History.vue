@@ -50,8 +50,7 @@ export default {
             this.chatType = chatType.toLowerCase();
             this.chat = await Chat.create("New Chat :" + this.chatType, this.chatType);
 
-            await this.loadChats();
-            this.$emit('new-chat', this.chat);
+             this.$emit('new-chat', this.chat);
 
             this.clearChats(this.chat.uuid);
 

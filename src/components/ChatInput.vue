@@ -1,8 +1,8 @@
 <template>
     <div class="container-input">
         <div class="chat-input" :class="{ 'focus': isFocused }">
-            <textarea id="chatInput" rows="1" placeholder="Escribe aqui..." ref="textarea" v-model="text" @focus="handleFocus"
-                @blur="handleBlur" @input="adjustTextareaHeight"></textarea>
+            <textarea id="chatInput" rows="1" placeholder="Escribe aqui..." ref="textarea" v-model="text"
+                @focus="handleFocus" @blur="handleBlur" @input="adjustTextareaHeight"></textarea>
 
             <button @click="sendChat()" :class="`send-button ${text.length === 0 || isDisabled ? 'button-disabled' : ''}`">
                 <vue-fontawesome icon="send" size="2" color="#605e5e"></vue-fontawesome>
@@ -13,6 +13,10 @@
 </template>
 
 <script>
+
+
+
+
 export default {
     name: 'ChatInput',
     data() {
@@ -20,17 +24,20 @@ export default {
             isFocused: false,
             maxHeight: 0,
             text: '',
-            isDisabled: false
+            isDisabled: false,
         };
     },
     mounted() {
+       
         this.adjustTextareaHeight();
     },
     methods: {
-        sendChat() {
+        async sendChat() {
+
+            this.text = this.text.trim();
 
             this.$emit('new-message', this.text)
-            this.text = ''
+            this.text = '';
 
         },
         handleFocus() {
